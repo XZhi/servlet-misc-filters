@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>ServletMiscFilters</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>es.biohazardwtf.miscfilters.Test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/Test</url-pattern>
+  </servlet-mapping>
+  
+<!--   	*************************SESSION FIXATION FILTER*************************	 -->  
+	<filter>
+		<filter-name>SessionFixationFilter</filter-name>
+		<filter-class>es.biohazardwtf.miscfilters.SessionFixationFilter</filter-class>
+		
+	    <init-param>
+  			<description>Requests send by each client before session is renewed. Minimum (safest) value is 1.</description>
+    		<param-name>sessionRenewalThreshold</param-name>
+   			<param-value>3</param-value>
+  		</init-param>
+  		
+  		<init-param>
+  			<description>Allow or disallow URL rewriting(disallow is more secure)</description>
+    		<param-name>allowURLRewriting</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
+  		
+  		<init-param>
+  			<description>(Optional) Error page URL</description>
+    		<param-name>errorURL</param-name>
+   			<param-value>/WEB-INF/error_general.jsp</param-value>
+  		</init-param>
+  		
+   		<init-param>
+  			<description>Allow or disallow additional protection checks (IP, user-agent,etc)</description>
+    		<param-name>strictControl</param-name>
+   			<param-value>true</param-value>
+  		</init-param>	
+  	
+	</filter>
+	<filter-mapping>
+	    <filter-name>SessionFixationFilter</filter-name>
+	    <url-pattern>/Test</url-pattern>
+	</filter-mapping>
+	
+	
+<!--   	*************************LOGGING FILTER*************************	 -->	
+	
+	<filter>
+		<filter-name>LoggingFilter</filter-name>
+		<filter-class>es.biohazardwtf.miscfilters.LoggingFilter</filter-class>
+		
+		<init-param>
+  			<description>Log every request's parameters</description>
+    		<param-name>logRequestParams</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
+  		
+  		<init-param>
+  			<description>Log request's associated session parameters</description>
+    		<param-name>logSessionParams</param-name>
+   			<param-value>true</param-value>
+  		</init-param>
+  		
+  		<init-param>
+  			<description>Log request's cookies</description>
+    		<param-name>logCookies</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
+  		
+  		<init-param>
+  			<description>Log miscellaneous info about request</description>
+    		<param-name>logMiscInfo</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
+  				
+	</filter>
+	<filter-mapping>
+	    <filter-name>LoggingFilter</filter-name>
+	    <url-pattern>/Test</url-pattern>
+	</filter-mapping>
+	
+<!--   	*************************COOKIE CHECK FILTER*************************	 -->	
+	
+	<filter>
+		<filter-name>CookieCheckFilter</filter-name>
+		<filter-class>es.biohazardwtf.miscfilters.CookieCheckFilter</filter-class>
+		
+		<init-param>
+  			<description>Cookies expected in the requests separated by coma</description>
+    		<param-name>expectedCookies</param-name>
+   			<param-value>foo,bar,foobar</param-value>
+  		</init-param>
+
+	</filter>
+	<filter-mapping>
+	    <filter-name>CookieCheckFilter</filter-name>
+	    <url-pattern>/Test</url-pattern>
+	</filter-mapping>
+  
+  
+  
+  
+  
+</web-app>
