@@ -2,6 +2,7 @@ package es.biohazardwtf.miscfilters;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -31,34 +32,38 @@ import javax.servlet.http.HttpSession;
 public class CookieCheckFilter implements Filter {
 	
 	private List<String> expectedCookies;
+	private FilterConfig filterConfigObj = null;
 	
 	private final int LENGTH = 90;
 
 	public void init( FilterConfig config ) throws ServletException {
 		
-		 String cookieParam = config.getInitParameter("expectedCookies");
-		 StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-	 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
-	 		
-		 if( cookieParam != null ){
-			 StringTokenizer token = new StringTokenizer(cookieParam, ",");
-			 this.expectedCookies = new ArrayList<String>();
-			 
-			 while ( token.hasMoreTokens() ) {
-				this.expectedCookies.add( token.nextToken() );
-			 }
-
-			// initText.append( FilterUtils.outputTextCentered("Error page URL: " + this.errorURL , "*", LENGTH) );
-     		initText.append( FilterUtils.outputTextCentered("", "*", LENGTH) );
-     		initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*", LENGTH) );
-			 
-		 }else{
-			 initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*", LENGTH) );
-			 
-		 }
+		this.filterConfigObj = config;
+		String cookieParam = config.getInitParameter("expectedCookies");
+		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
+		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
+			
+		if( cookieParam != null ){
+			StringTokenizer token = new StringTokenizer(cookieParam, ",");
+			this.expectedCookies = new ArrayList<String>();
 		 
-		 initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
-		 config.getServletContext().log( initText.toString() );
+			while ( token.hasMoreTokens() ) {
+				this.expectedCookies.add( token.nextToken() );
+			}
+		 
+			for( String cookieFound : this.expectedCookies ){
+				initText.append( FilterUtils.outputTextCentered("Expected cookie: " + cookieFound , "*", LENGTH) );
+			}
+			initText.append( FilterUtils.outputTextCentered("", "*", LENGTH) );
+			initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*", LENGTH) );
+			 
+		}else{
+			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*", LENGTH) );
+			 
+		}
+		 
+		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+		this.filterConfigObj.getServletContext().log( initText.toString() );
 		 
 	}
 
@@ -66,24 +71,49 @@ public class CookieCheckFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
     	HttpServletResponse response = (HttpServletResponse) res;
-    	HttpSession session = request.getSession(false);
 		
-		Cookie[] cookies = request.getCookies();
-		//check for null set of cookies and handle by creating empty array - same result
-		if (cookies == null) {
-			cookies = new Cookie[0];
+		Cookie[] cookies = request.getCookies();	
+		List<String> cookieList = new ArrayList<String>();
+		for( Cookie c : cookies ){
+			cookieList.add( c.getName() );
+		}
+
+		
+		
+		List<String> notFoundCookies = new ArrayList<String>();
+		List<String> unexpectedFoundCookies = new ArrayList<String>();
+		
+		for ( String cookieName : expectedCookies ) {
+			if ( cookieList.contains(cookieName) ){
+				cookieList.remove(cookieName);
+			
+			}else{
+				notFoundCookies.add(cookieName);
+				
+			}
 		}
 		
-		Collection<String> cookieList = new ArrayList<String>();
-		
-		//get names of actual cookies that are in the request
-		for (Cookie cookie : cookies) {
-			cookieList.add(cookie.getName());
+		for ( String cookieName : cookieList ){
+			unexpectedFoundCookies.add(cookieName);
 		}
 		
-		//*************************************************
-		//COMPROBAR SI LAS COOKIES ESTAN EN ORDEN Y CONTINUAR
-		//*************************************************
+		if( notFoundCookies.size() != 0 || unexpectedFoundCookies.size() != 0 ){
+			
+			StringBuilder errorText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
+			errorText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
+			errorText.append( FilterUtils.outputTextCentered("Possible cookie manipulation found!", "*", LENGTH) );
+			
+			for( String cookieName : notFoundCookies ){
+				errorText.append( FilterUtils.outputTextCentered("Cookie not found: " + cookieName, "*", LENGTH) );
+			}
+			
+			for( String cookieName : unexpectedFoundCookies ){
+				errorText.append( FilterUtils.outputTextCentered("Unexpected cookie found: " + cookieName, "*", LENGTH) );
+			}
+			
+			errorText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+			this.filterConfigObj.getServletContext().log( errorText.toString() );
+		}
 		
 		chain.doFilter(request, response);
 	}

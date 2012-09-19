@@ -97,9 +97,9 @@
 		<filter-class>es.biohazardwtf.miscfilters.CookieCheckFilter</filter-class>
 		
 		<init-param>
-  			<description>Cookies expected in the requests separated by coma</description>
+  			<description>Cookies expected in the requests separated by coma, case sensitive</description>
     		<param-name>expectedCookies</param-name>
-   			<param-value>foo,bar,foobar</param-value>
+   			<param-value>JSESSIONID,foo,bar</param-value>
   		</init-param>
 
 	</filter>
