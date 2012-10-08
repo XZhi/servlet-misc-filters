@@ -2,8 +2,6 @@ package es.biohazardwtf.miscfilters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -16,18 +14,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * This method inspects the current HTTP request as well as the expected
- * cookie names method, and determines if there are any differences, either
- * more or fewer cookies.  If any difference is detected an error is thrown.
- *  
- * @see http://www.owasp.org/index.php/AppSensor_DetectionPoints#SE2:_Adding_New_Cookies
- * @see http://www.owasp.org/index.php/AppSensor_DetectionPoints#SE3:_Deleting_Existing_Cookies
- * 
- * @param expectedCookieNames the names of the expected cookies
- * 
+ * This filter checks if the request contain the expected cookies. If
+ * it detects any discrepancy the request may be rejected. It can be
+ * configured to just log the problems found or take measures and
+ * reject the request, redirecting the user to another page.
  */
 public class CookieCheckFilter implements Filter {
 	
