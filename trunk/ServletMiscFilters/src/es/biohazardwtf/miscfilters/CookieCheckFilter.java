@@ -25,13 +25,16 @@ public class CookieCheckFilter implements Filter {
 	
 	private List<String> expectedCookies;
 	private FilterConfig filterConfigObj = null;
+	private String redirectURL;
 	
-	private final int LENGTH = 90;
+	private static final int LENGTH = 90;
 
 	public void init( FilterConfig config ) throws ServletException {
 		
 		this.filterConfigObj = config;
 		String cookieParam = config.getInitParameter("expectedCookies");
+		this.redirectURL = config.getInitParameter("redirectURL");
+		
 		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
 			
@@ -101,6 +104,19 @@ public class CookieCheckFilter implements Filter {
 			
 			for( String cookieName : unexpectedFoundCookies ){
 				errorText.append( FilterUtils.outputTextCentered("Unexpected cookie found: " + cookieName, "*", LENGTH) );
+			}
+			
+			
+			
+			if( this.redirectURL != null ){
+		    		request.setAttribute( "errorMessage", "Security Error detected!" );
+		    		request.getRequestDispatcher( this.redirectURL ).forward( request, response );
+		    		
+		    		errorText.append( FilterUtils.outputTextCentered("Request redirected to: " + this.redirectURL ,"*" , LENGTH) );
+		    		errorText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+					this.filterConfigObj.getServletContext().log( errorText.toString() );
+		    		return;
+
 			}
 			
 			errorText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );

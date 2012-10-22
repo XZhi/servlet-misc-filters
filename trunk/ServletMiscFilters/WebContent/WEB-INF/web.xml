@@ -19,97 +19,127 @@
   </servlet-mapping>
   
 <!--   	*************************SESSION FIXATION FILTER*************************	 -->  
-	<filter>
-		<filter-name>SessionFixationFilter</filter-name>
-		<filter-class>es.biohazardwtf.miscfilters.SessionFixationFilter</filter-class>
+<!-- 	<filter> -->
+<!-- 		<filter-name>SessionFixationFilter</filter-name> -->
+<!-- 		<filter-class>es.biohazardwtf.miscfilters.SessionFixationFilter</filter-class> -->
 		
-	    <init-param>
-  			<description>Requests send by each client before session is renewed. Minimum (safest) value is 1.</description>
-    		<param-name>sessionRenewalThreshold</param-name>
-   			<param-value>3</param-value>
-  		</init-param>
+<!-- 	    <init-param> -->
+<!--   			<description>Requests send by each client before session is renewed. Minimum (safest) value is 1.</description> -->
+<!--     		<param-name>sessionRenewalThreshold</param-name> -->
+<!--    			<param-value>3</param-value> -->
+<!--   		</init-param> -->
   		
-  		<init-param>
-  			<description>Allow or disallow URL rewriting(disallow is more secure)</description>
-    		<param-name>allowURLRewriting</param-name>
-   			<param-value>false</param-value>
-  		</init-param>
+<!--   		<init-param> -->
+<!--   			<description>Allow or disallow URL rewriting(disallow is more secure)</description> -->
+<!--     		<param-name>allowURLRewriting</param-name> -->
+<!--    			<param-value>false</param-value> -->
+<!--   		</init-param> -->
   		
-  		<init-param>
-  			<description>(Optional) Error page URL</description>
-    		<param-name>errorURL</param-name>
-   			<param-value>/WEB-INF/error_general.jsp</param-value>
-  		</init-param>
+<!--   		<init-param> -->
+<!--   			<description>(Optional) Error page URL</description> -->
+<!--     		<param-name>errorURL</param-name> -->
+<!--    			<param-value>/WEB-INF/error_general.jsp</param-value> -->
+<!--   		</init-param> -->
   		
-   		<init-param>
-  			<description>Allow or disallow additional protection checks (IP, user-agent,etc)</description>
-    		<param-name>strictControl</param-name>
-   			<param-value>true</param-value>
-  		</init-param>	
+<!--    		<init-param> -->
+<!--   			<description>Allow or disallow additional protection checks (IP, user-agent,etc)</description> -->
+<!--     		<param-name>strictControl</param-name> -->
+<!--    			<param-value>true</param-value> -->
+<!--   		</init-param>	 -->
   	
-	</filter>
-	<filter-mapping>
-	    <filter-name>SessionFixationFilter</filter-name>
-	    <url-pattern>/Test</url-pattern>
-	</filter-mapping>
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 	    <filter-name>SessionFixationFilter</filter-name> -->
+<!-- 	    <url-pattern>/Test</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	
 	
 <!--   	*************************LOGGING FILTER*************************	 -->	
 	
-	<filter>
-		<filter-name>LoggingFilter</filter-name>
-		<filter-class>es.biohazardwtf.miscfilters.LoggingFilter</filter-class>
+<!-- 	<filter> -->
+<!-- 		<filter-name>LoggingFilter</filter-name> -->
+<!-- 		<filter-class>es.biohazardwtf.miscfilters.LoggingFilter</filter-class> -->
 		
-		<init-param>
-  			<description>Log every request's parameters</description>
-    		<param-name>logRequestParams</param-name>
-   			<param-value>false</param-value>
-  		</init-param>
+<!-- 		<init-param> -->
+<!--   			<description>Log every request's parameters</description> -->
+<!--     		<param-name>logRequestParams</param-name> -->
+<!--    			<param-value>false</param-value> -->
+<!--   		</init-param> -->
   		
-  		<init-param>
-  			<description>Log request's associated session parameters</description>
-    		<param-name>logSessionParams</param-name>
-   			<param-value>true</param-value>
-  		</init-param>
+<!--   		<init-param> -->
+<!--   			<description>Log request's associated session parameters</description> -->
+<!--     		<param-name>logSessionParams</param-name> -->
+<!--    			<param-value>true</param-value> -->
+<!--   		</init-param> -->
   		
-  		<init-param>
-  			<description>Log request's cookies</description>
-    		<param-name>logCookies</param-name>
-   			<param-value>false</param-value>
-  		</init-param>
+<!--   		<init-param> -->
+<!--   			<description>Log request's cookies</description> -->
+<!--     		<param-name>logCookies</param-name> -->
+<!--    			<param-value>false</param-value> -->
+<!--   		</init-param> -->
   		
-  		<init-param>
-  			<description>Log miscellaneous info about request</description>
-    		<param-name>logMiscInfo</param-name>
-   			<param-value>false</param-value>
-  		</init-param>
+<!--   		<init-param> -->
+<!--   			<description>Log miscellaneous info about request</description> -->
+<!--     		<param-name>logMiscInfo</param-name> -->
+<!--    			<param-value>false</param-value> -->
+<!--   		</init-param> -->
   				
-	</filter>
-	<filter-mapping>
-	    <filter-name>LoggingFilter</filter-name>
-	    <url-pattern>/Test</url-pattern>
-	</filter-mapping>
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 	    <filter-name>LoggingFilter</filter-name> -->
+<!-- 	    <url-pattern>/Test</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	
 <!--   	*************************COOKIE CHECK FILTER*************************	 -->	
 	
+<!-- 	<filter> -->
+<!-- 		<filter-name>CookieCheckFilter</filter-name> -->
+<!-- 		<filter-class>es.biohazardwtf.miscfilters.CookieCheckFilter</filter-class> -->
+		
+<!-- 		<init-param> -->
+<!--   			<description>Cookies expected in the requests separated by coma, case sensitive</description> -->
+<!--     		<param-name>expectedCookies</param-name> -->
+<!--    			<param-value>JSESSIONID,foo,bar</param-value> -->
+<!--   		</init-param> -->
+  		
+<!--   		<init-param> -->
+<!-- 			<description>(Optional)URL for redirection in case of cookie modification</description> -->
+<!-- 			<param-name>redirectURL</param-name> -->
+<!-- 			<param-value>/WEB-INF/error_general.jsp</param-value> -->
+<!-- 		</init-param> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 	    <filter-name>CoockieCheckFilter</filter-name> -->
+<!-- 	    <url-pattern>/Test</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
+<!--   	*************************MAINTENANCE FILTER*************************		 -->
+	
 	<filter>
-		<filter-name>CookieCheckFilter</filter-name>
-		<filter-class>es.biohazardwtf.miscfilters.CookieCheckFilter</filter-class>
+		<filter-name>MaintenanceFilter</filter-name>
+		<filter-class>es.biohazardwtf.miscfilters.MaintenanceFilter</filter-class>
+	
+  		<init-param>
+			<description>URL for redirection when the filter is in maintenance mode</description>
+			<param-name>redirectURL</param-name>
+			<param-value>/WEB-INF/redirect.jsp</param-value>
+		</init-param>
 		
 		<init-param>
-  			<description>Cookies expected in the requests separated by coma, case sensitive</description>
-    		<param-name>expectedCookies</param-name>
-   			<param-value>JSESSIONID,foo,bar</param-value>
-  		</init-param>
-
+			<description>Admin username(case-sensitive) used to gain permissions over the filter</description>
+			<param-name>adminUsername</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>Admin password(case-sensitive) used to gain permissions over the filter</description>
+			<param-name>adminPassword</param-name>
+			<param-value>admin</param-value>
+		</init-param>
 	</filter>
-	<filter-mapping>
-	    <filter-name>CookieCheckFilter</filter-name>
+		<filter-mapping>
+	    <filter-name>MaintenanceFilter</filter-name>
 	    <url-pattern>/Test</url-pattern>
 	</filter-mapping>
-  
-  
-  
-  
-  
+
 </web-app>
