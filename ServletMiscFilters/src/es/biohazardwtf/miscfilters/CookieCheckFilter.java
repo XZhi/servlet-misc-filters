@@ -26,8 +26,6 @@ public class CookieCheckFilter implements Filter {
 	private List<String> expectedCookies;
 	private FilterConfig filterConfigObj = null;
 	private String redirectURL;
-	
-	private static final int LENGTH = 90;
 
 	public void init( FilterConfig config ) throws ServletException {
 		
@@ -35,8 +33,8 @@ public class CookieCheckFilter implements Filter {
 		String cookieParam = config.getInitParameter("expectedCookies");
 		this.redirectURL = config.getInitParameter("redirectURL");
 		
-		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
+		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*" ) );
 			
 		if( cookieParam != null ){
 			StringTokenizer token = new StringTokenizer(cookieParam, ",");
@@ -47,17 +45,17 @@ public class CookieCheckFilter implements Filter {
 			}
 		 
 			for( String cookieFound : this.expectedCookies ){
-				initText.append( FilterUtils.outputTextCentered("Expected cookie: " + cookieFound , "*", LENGTH) );
+				initText.append( FilterUtils.outputTextCentered("Expected cookie: " + cookieFound , "*" ) );
 			}
-			initText.append( FilterUtils.outputTextCentered("", "*", LENGTH) );
-			initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*", LENGTH) );
+			initText.append( FilterUtils.outputTextCentered("", "*" ) );
+			initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*" ) );
 			 
 		}else{
-			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*", LENGTH) );
+			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*" ) );
 			 
 		}
 		 
-		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+		initText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
 		this.filterConfigObj.getServletContext().log( initText.toString() );
 		 
 	}
@@ -94,16 +92,16 @@ public class CookieCheckFilter implements Filter {
 		
 		if( notFoundCookies.size() != 0 || unexpectedFoundCookies.size() != 0 ){
 			
-			StringBuilder errorText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-			errorText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*", LENGTH) );
-			errorText.append( FilterUtils.outputTextCentered("Possible cookie manipulation found!", "*", LENGTH) );
+			StringBuilder errorText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+			errorText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Cookie Check Filter", "*" ) );
+			errorText.append( FilterUtils.outputTextCentered("Possible cookie manipulation found!", "*" ) );
 			
 			for( String cookieName : notFoundCookies ){
-				errorText.append( FilterUtils.outputTextCentered("Cookie not found: " + cookieName, "*", LENGTH) );
+				errorText.append( FilterUtils.outputTextCentered("Cookie not found: " + cookieName, "*" ) );
 			}
 			
 			for( String cookieName : unexpectedFoundCookies ){
-				errorText.append( FilterUtils.outputTextCentered("Unexpected cookie found: " + cookieName, "*", LENGTH) );
+				errorText.append( FilterUtils.outputTextCentered("Unexpected cookie found: " + cookieName, "*" ) );
 			}
 			
 			
@@ -112,24 +110,22 @@ public class CookieCheckFilter implements Filter {
 		    		request.setAttribute( "errorMessage", "Security Error detected!" );
 		    		request.getRequestDispatcher( this.redirectURL ).forward( request, response );
 		    		
-		    		errorText.append( FilterUtils.outputTextCentered("Request redirected to: " + this.redirectURL ,"*" , LENGTH) );
-		    		errorText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+		    		errorText.append( FilterUtils.outputTextCentered("Request redirected to: " + this.redirectURL ,"*" ) );
+		    		errorText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
 					this.filterConfigObj.getServletContext().log( errorText.toString() );
 		    		return;
 
 			}
 			
-			errorText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+			errorText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
 			this.filterConfigObj.getServletContext().log( errorText.toString() );
 		}
 		
 		chain.doFilter(request, response);
 	}
 	
-	@Override
+	
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
