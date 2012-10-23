@@ -24,7 +24,6 @@ public class MaintenanceFilter implements Filter{
 	private String adminPassword;
 	
 	private static final boolean MAINTENANCE_MODE = false;
-	private static final int LENGTH = 90;
 	
 	private boolean maintenanceMode = MAINTENANCE_MODE;
 	
@@ -35,22 +34,22 @@ public class MaintenanceFilter implements Filter{
 		this.adminPassword = config.getInitParameter("adminPassword");
 		this.requestCounter = new AtomicInteger(0);
 		
-		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Maintenance Filter", "*", LENGTH) );
+		StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Maintenance Filter", "*" ) );
 
 		if( this.redirectURL != null && this.adminUsername != null && this.adminPassword != null){
 
-			initText.append( FilterUtils.outputTextCentered("Redirect requests to: " + this.redirectURL , "*", LENGTH) );
-			initText.append( FilterUtils.outputTextCentered("Admin username: " + this.adminUsername + "  Password: " + this.adminPassword, "*", LENGTH) );
-			initText.append( FilterUtils.outputTextCentered("", "*", LENGTH) );
-			initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*", LENGTH) );
+			initText.append( FilterUtils.outputTextCentered("Redirect requests to: " + this.redirectURL , "*" ) );
+			initText.append( FilterUtils.outputTextCentered("Admin username: " + this.adminUsername + "  Password: " + this.adminPassword, "*" ) );
+			initText.append( FilterUtils.outputTextCentered("", "*" ) );
+			initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*" ) );
 
 		}else{
-			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*", LENGTH) );
+			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter not found!", "*" ) );
 			 
 		}
 		 
-		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+		initText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
 		this.filterConfigObj.getServletContext().log( initText.toString() );
 
 	}
@@ -68,7 +67,7 @@ public class MaintenanceFilter implements Filter{
     		//If the three needed parameters aren't null and their values are correct...
     		if( this.adminUsername.equals(username) && this.adminPassword.equals(password) ){
     			this.maintenanceMode = Boolean.parseBoolean(maintenanceparam);
-    		}    		    	
+    		}
     	}
     	
     	//REVISAR ESTE APARTADO, ES POSIBLE QUE SE TENGA QUE HACER COMPARACION CON OBJETOS Y NO CON ==

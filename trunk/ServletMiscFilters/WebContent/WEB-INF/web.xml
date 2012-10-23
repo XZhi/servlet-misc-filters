@@ -18,7 +18,7 @@
     <url-pattern>/Test</url-pattern>
   </servlet-mapping>
   
-<!--   	*************************SESSION FIXATION FILTER*************************	 -->  
+<!--   	*************************SESSION FIXATION FILTER*************************	   -->
 <!-- 	<filter> -->
 <!-- 		<filter-name>SessionFixationFilter</filter-name> -->
 <!-- 		<filter-class>es.biohazardwtf.miscfilters.SessionFixationFilter</filter-class> -->
@@ -54,7 +54,7 @@
 <!-- 	</filter-mapping> -->
 	
 	
-<!--   	*************************LOGGING FILTER*************************	 -->	
+<!--   	*************************LOGGING FILTER*************************		 -->
 	
 <!-- 	<filter> -->
 <!-- 		<filter-name>LoggingFilter</filter-name> -->
@@ -90,7 +90,7 @@
 <!-- 	    <url-pattern>/Test</url-pattern> -->
 <!-- 	</filter-mapping> -->
 	
-<!--   	*************************COOKIE CHECK FILTER*************************	 -->	
+<!--   	*************************COOKIE CHECK FILTER*************************		 -->
 	
 <!-- 	<filter> -->
 <!-- 		<filter-name>CookieCheckFilter</filter-name> -->
@@ -109,7 +109,7 @@
 <!-- 		</init-param> -->
 <!-- 	</filter> -->
 <!-- 	<filter-mapping> -->
-<!-- 	    <filter-name>CoockieCheckFilter</filter-name> -->
+<!-- 	    <filter-name>CookieCheckFilter</filter-name> -->
 <!-- 	    <url-pattern>/Test</url-pattern> -->
 <!-- 	</filter-mapping> -->
 
@@ -136,8 +136,9 @@
 			<param-name>adminPassword</param-name>
 			<param-value>admin</param-value>
 		</init-param>
+
 	</filter>
-		<filter-mapping>
+	<filter-mapping>
 	    <filter-name>MaintenanceFilter</filter-name>
 	    <url-pattern>/Test</url-pattern>
 	</filter-mapping>

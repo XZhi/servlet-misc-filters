@@ -31,8 +31,8 @@ public class SessionFixationFilter implements Filter {
     	
     	this.filterConfigObj = config;
        
-    	StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
- 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*", LENGTH) );
+    	StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+ 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*" ) );
         
         String param1 = config.getInitParameter("sessionRenewalThreshold");
         String param2 = config.getInitParameter("allowURLRewriting");
@@ -41,7 +41,7 @@ public class SessionFixationFilter implements Filter {
         
         if( param1==null || param2==null || param3==null ){
         	 this.initError = true;
-        	 initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameters not found!", "*", LENGTH) );
+        	 initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameters not found!", "*" ) );
 
         }else{
         	try{
@@ -51,27 +51,27 @@ public class SessionFixationFilter implements Filter {
         		
         		if( this.sessionRenewalThreshold <= 0 ){
         			this.initError = true;
-        			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter value incorrect!", "*", LENGTH) );
+        			initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter value incorrect!", "*" ) );
         			
         		}else{
 	
-            		initText.append( FilterUtils.outputTextCentered("URL Rewriting allowed: " + this.allowURLRewriting , "*", LENGTH) );
-            		initText.append( FilterUtils.outputTextCentered("Session renewal threshold: " + this.sessionRenewalThreshold , "*", LENGTH) );
-            		initText.append( FilterUtils.outputTextCentered("Strict session control: " + this.strictControl , "*", LENGTH) );
-            		initText.append( FilterUtils.outputTextCentered("Error page URL: " + this.errorURL , "*", LENGTH) );
+            		initText.append( FilterUtils.outputTextCentered("URL Rewriting allowed: " + this.allowURLRewriting , "*" ) );
+            		initText.append( FilterUtils.outputTextCentered("Session renewal threshold: " + this.sessionRenewalThreshold , "*" ) );
+            		initText.append( FilterUtils.outputTextCentered("Strict session control: " + this.strictControl , "*" ) );
+            		initText.append( FilterUtils.outputTextCentered("Error page URL: " + this.errorURL , "*" ) );
 
-            		initText.append( FilterUtils.outputTextCentered("", "*", LENGTH) );
-            		initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*", LENGTH) );
+            		initText.append( FilterUtils.outputTextCentered("", "*" ) );
+            		initText.append( FilterUtils.outputTextCentered("Initialization successful!", "*" ) );
         		}
         		
         	}catch( NumberFormatException e ){
         		 this.initError = true;
-        		 initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter value incorrect!", "*", LENGTH) );
+        		 initText.append( FilterUtils.outputTextCentered("Initialization failure! Parameter value incorrect!", "*" ) );
         	}
 
         }
        	
-		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+		initText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
 		filterConfigObj.getServletContext().log( initText.toString() );
     }
    
@@ -155,10 +155,10 @@ public class SessionFixationFilter implements Filter {
             		if( !req_agent.equals(sess_agent) ){
             			session.invalidate();
             			
-            			StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextCentered("User-agent conflict detected,possible threat. Session invalidated" , "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+            			StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+            	 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*" ) );
+            	 		initText.append( FilterUtils.outputTextCentered("User-agent conflict detected,possible threat. Session invalidated" , "*" ) );
+            	 		initText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
             			filterConfigObj.getServletContext().log( initText.toString() );
             	 		
             	 		rejectRequest( request, response );
@@ -169,10 +169,10 @@ public class SessionFixationFilter implements Filter {
             		if( !req_ip.equals(sess_ip) ){
             			session.invalidate();
             			
-            			StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextCentered("IP conflict detected, possible threat. Session invalidated" , "*", LENGTH) );
-            	 		initText.append( FilterUtils.outputTextDelimiter(false, "*", LENGTH) );
+            			StringBuilder initText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "*" ) );
+            	 		initText.append( FilterUtils.outputTextCentered("Servlet Misc Filters - Session Fixation Protection Filter", "*" ) );
+            	 		initText.append( FilterUtils.outputTextCentered("IP conflict detected, possible threat. Session invalidated" , "*" ) );
+            	 		initText.append( FilterUtils.outputTextDelimiter(false, "*" ) );
             			filterConfigObj.getServletContext().log( initText.toString() );
             	 		
             	 		rejectRequest( request, response );
@@ -184,9 +184,9 @@ public class SessionFixationFilter implements Filter {
             
     	}else{
     		
-    		StringBuilder errorText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "-" , LENGTH) );
-    		errorText.append( FilterUtils.outputTextCentered("Session Fixation Protection Filter: Couldn't process session due to init errors!" , "|" , LENGTH) );
-			errorText.append( FilterUtils.outputTextDelimiter(false, "-",LENGTH) );
+    		StringBuilder errorText = new StringBuilder( FilterUtils.outputTextDelimiter(true, "-" ) );
+    		errorText.append( FilterUtils.outputTextCentered("Session Fixation Protection Filter: Couldn't process session due to init errors!" , "|" ) );
+			errorText.append( FilterUtils.outputTextDelimiter(false, "-" ) );
 			
 			filterConfigObj.getServletContext().log( errorText.toString() );
     	}
