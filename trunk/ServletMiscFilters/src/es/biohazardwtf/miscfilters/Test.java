@@ -40,6 +40,13 @@ public class Test extends HttpServlet{
 						request.getSession().setAttribute("attribute1" , "UNO");
 						request.getSession().setAttribute("attribute2" , "DOS");
 						request.getSession().setAttribute("attribute3" , "TRES");		
+						
+						try {
+							Thread.sleep(10000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 								
 					destination =  "/WEB-INF/main.jsp";
