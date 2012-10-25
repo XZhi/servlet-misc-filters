@@ -23,9 +23,9 @@ public class MaintenanceFilter implements Filter{
 	private String adminUsername;
 	private String adminPassword;
 	
-	private static final boolean MAINTENANCE_MODE = false;
+	private static final boolean MAINTENANCE_MODE = true;
 	
-	private boolean maintenanceMode = MAINTENANCE_MODE;
+	private boolean maintenanceMode = false;
 	
 	public void init(FilterConfig config) throws ServletException{
 		this.filterConfigObj = config;
@@ -59,19 +59,25 @@ public class MaintenanceFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
     	HttpServletResponse response = (HttpServletResponse) res;
     	
-    	String maintenanceparam = request.getParameter("maintenancemode");
+    	String maintenanceParam = request.getParameter("maintenancemode");
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
+    	String forceParam = request.getParameter("force");
+    //	boolean forceMaintenance = false;
     	
-    	if( maintenanceparam != null && username != null && password != null ){
+    	if( maintenanceParam != null && username != null && password != null ){
     		//If the three needed parameters aren't null and their values are correct...
     		if( this.adminUsername.equals(username) && this.adminPassword.equals(password) ){
-    			this.maintenanceMode = Boolean.parseBoolean(maintenanceparam);
+//    			if( forceParam != null ){
+//    				forceMaintenance = Boolean.parseBoolean(forceParam);
+//    			}
+    			this.maintenanceMode = Boolean.parseBoolean(maintenanceParam);
     		}
     	}
     	
     	//REVISAR ESTE APARTADO, ES POSIBLE QUE SE TENGA QUE HACER COMPARACION CON OBJETOS Y NO CON ==
-    	if( this.maintenanceMode == MAINTENANCE_MODE ){
+    	//AÑADIR UNA TIMERTASK CON UN 'AVISO' DE CIERRE Y CUANDO LLEGUE EL CONTADOR A 0, PASAR A MODO MANTENIMIENTO
+    	if( this.maintenanceMode == MAINTENANCE_MODE && forceMaintenance){
     		System.out.println("MAINTENANCE MODE ON");
     		request.getRequestDispatcher( this.redirectURL ).forward( request, response );
     		return;
@@ -80,7 +86,12 @@ public class MaintenanceFilter implements Filter{
     		System.out.println("MAINTENANCE MODE OFF");
     	}
 
+    	this.requestCounter.incrementAndGet();
+    	System.out.println( "VALOR PRE-dofilter:" + this.requestCounter.get() );
     	chain.doFilter( request,response );
+    	
+    	this.requestCounter.decrementAndGet();
+    	System.out.println( "VALOR POST-dofilter:" + this.requestCounter.get() );
 
 	}
 
