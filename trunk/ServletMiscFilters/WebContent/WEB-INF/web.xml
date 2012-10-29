@@ -56,39 +56,39 @@
 	
 <!--   	*************************LOGGING FILTER*************************		 -->
 	
-<!-- 	<filter> -->
-<!-- 		<filter-name>LoggingFilter</filter-name> -->
-<!-- 		<filter-class>es.biohazardwtf.miscfilters.LoggingFilter</filter-class> -->
+	<filter>
+		<filter-name>LoggingFilter</filter-name>
+		<filter-class>es.biohazardwtf.miscfilters.LoggingFilter</filter-class>
 		
-<!-- 		<init-param> -->
-<!--   			<description>Log every request's parameters</description> -->
-<!--     		<param-name>logRequestParams</param-name> -->
-<!--    			<param-value>false</param-value> -->
-<!--   		</init-param> -->
+		<init-param>
+  			<description>Log every request's parameters</description>
+    		<param-name>logRequestParams</param-name>
+   			<param-value>true</param-value>
+  		</init-param>
   		
-<!--   		<init-param> -->
-<!--   			<description>Log request's associated session parameters</description> -->
-<!--     		<param-name>logSessionParams</param-name> -->
-<!--    			<param-value>true</param-value> -->
-<!--   		</init-param> -->
+  		<init-param>
+  			<description>Log request's associated session parameters</description>
+    		<param-name>logSessionParams</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
   		
-<!--   		<init-param> -->
-<!--   			<description>Log request's cookies</description> -->
-<!--     		<param-name>logCookies</param-name> -->
-<!--    			<param-value>false</param-value> -->
-<!--   		</init-param> -->
+  		<init-param>
+  			<description>Log request's cookies</description>
+    		<param-name>logCookies</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
   		
-<!--   		<init-param> -->
-<!--   			<description>Log miscellaneous info about request</description> -->
-<!--     		<param-name>logMiscInfo</param-name> -->
-<!--    			<param-value>false</param-value> -->
-<!--   		</init-param> -->
+  		<init-param>
+  			<description>Log miscellaneous info about request</description>
+    		<param-name>logMiscInfo</param-name>
+   			<param-value>false</param-value>
+  		</init-param>
   				
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 	    <filter-name>LoggingFilter</filter-name> -->
-<!-- 	    <url-pattern>/Test</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	</filter>
+	<filter-mapping>
+	    <filter-name>LoggingFilter</filter-name>
+	    <url-pattern>/Test</url-pattern>
+	</filter-mapping>
 	
 <!--   	*************************COOKIE CHECK FILTER*************************		 -->
 	
@@ -135,6 +135,12 @@
 			<description>Admin password(case-sensitive) used to gain permissions over the filter</description>
 			<param-name>adminPassword</param-name>
 			<param-value>admin</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>(Optional) Admin's maintenance page URL</description>
+			<param-name>maintenanceURL</param-name>
+			<param-value>/WEB-INF/maintenance.jsp</param-value>
 		</init-param>
 
 	</filter>

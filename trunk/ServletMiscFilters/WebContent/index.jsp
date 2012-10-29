@@ -10,7 +10,12 @@
 
 	<form action="Test?test=rofl&wtf=lol" method='POST' accept-charset='UTF-8'>
 		<input type="hidden" name="pagina" value="main">
-		<input type="submit" name="submit" value="Entrar">
+		<input type="submit" value="Entrar">
+	</form>
+	
+	<form action="Test" method='POST' accept-charset='UTF-8'>
+		<input type="hidden" name="pagina" value="mantenimiento">
+		<input type="submit" value="Mantenimiento">
 	</form>
 	
 <a href='Test'>pruebaca</a>
