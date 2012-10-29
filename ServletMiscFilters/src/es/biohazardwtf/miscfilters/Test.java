@@ -57,7 +57,13 @@ public class Test extends HttpServlet{
 					destination = "/index.jsp";
 					break;
 					
+				case MANTENIMIENTO:
+					System.out.println("MANTENIMIENTOOOO!");
+					destination = "/WEB-INF/maintenance.jsp";
+					break;
+					
 				default:
+					System.out.println("DEFAULT!!");
 					//Codigo de error generico,si aparece es que se ha solicitado una operacion no contemplada
 					destination = "/WEB-INF/error_general.jsp";
 					request.setAttribute( "error" , "unknown" );
@@ -74,7 +80,7 @@ public class Test extends HttpServlet{
 	
 	//Tipo ENUM para usarse como switch case
 	public enum Page{
-		MAIN,INICIO,ERROR;
+		MAIN,INICIO,MANTENIMIENTO,ERROR;
 
 	    public static Page toPage(String str){
 	        try {
